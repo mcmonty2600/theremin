@@ -1,6 +1,10 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+// Get the canvas dimensions
+const canvasWidth = canvas.width;
+const canvasHeight = canvas.height;
+
 // Audio context setup
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const oscillator = audioCtx.createOscillator();
@@ -31,10 +35,10 @@ canvas.addEventListener('touchmove', (event) => {
 
 function updateSound(x, y) {
   // Calculate frequency based on X position, smoothing the transition
-  const frequency = 200 + (x / canvas.width) * 1000;
+  const frequency = 200 + (x / canvasWidth) * 200;
   oscillator.frequency.value = frequency;
 
   // Calculate gain based on Y position, smoothing the transition
-  const gain = y / canvas.height;
+  const gain = y / canvasHeight;
   gainNode.gain.value = gain;
 }
