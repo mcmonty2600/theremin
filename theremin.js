@@ -19,13 +19,22 @@ canvas.addEventListener('click', () => {
   });
 });
 
-// Mouse movement event listener
+// Mouse/Touch movement event listener
 canvas.addEventListener('mousemove', (event) => {
-  // Calculate frequency based on mouse X position
-  const frequency = 200 + (event.clientX / canvas.width) * 1000;
+  updateSound(event.clientX, event.clientY);
+});
+
+canvas.addEventListener('touchmove', (event) => {
+  const touch = event.touches[0];
+  updateSound(touch.clientX, touch.clientY);
+});
+
+function updateSound(x, y) {
+  // Calculate frequency based on X position, smoothing the transition
+  const frequency = 200 + (x / canvas.width) * 1000;
   oscillator.frequency.value = frequency;
 
-  // Calculate gain based on mouse Y position
-  const gain = event.clientY / canvas.height;
+  // Calculate gain based on Y position, smoothing the transition
+  const gain = y / canvas.height;
   gainNode.gain.value = gain;
-});
+}
