@@ -15,7 +15,7 @@ oscillator.start();
 let soundOn = false;
 
 // User interaction to toggle sound
-canvas.addEventListener('touchstart', (event) => {
+canvas.addEventListener('click', (event) => {
   audioCtx.resume().then(() => {
     console.log('AudioContext resumed successfully.');
   });
@@ -23,19 +23,15 @@ canvas.addEventListener('touchstart', (event) => {
   soundOn = !soundOn;
 });
 
-// Touch movement event listener
-canvas.addEventListener('touchmove', (event) => {
+// Mouse movement event listener
+canvas.addEventListener('mousemove', (event) => {
   if (soundOn) {
-    const touch = event.touches[0];
-    const x = touch.clientX;
-    const y = touch.clientY;
-
-    // Calculate frequency based on touch X position
-    const frequency = 200 + (x / canvas.width) * 1000;
+    // Calculate frequency based on mouse X position
+    const frequency = 200 + (event.clientX / canvas.width) * 1000;
     oscillator.frequency.value = frequency;
 
-    // Calculate gain based on touch Y position
-    const gain = y / canvas.height;
+    // Calculate gain based on mouse Y position
+    const gain = event.clientY / canvas.height;
     gainNode.gain.value = gain;
   }
 });
